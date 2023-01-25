@@ -64,7 +64,7 @@ export class TicketsController {
 
   @Put(':id/complete')
   @HttpCode(204)
-  async markAsComplete(@Param('id') ticketId: string) {
+  async markAsComplete(@Param('id', ParseIntPipe) ticketId: number) {
     await randomDelay();
     const success = await this.ticketsService.complete(Number(ticketId), true);
     if (!success) throw new UnprocessableEntityException();
@@ -72,7 +72,7 @@ export class TicketsController {
 
   @Delete(':id/complete')
   @HttpCode(204)
-  async markAsIncomplete(@Param('id') ticketId: string) {
+  async markAsIncomplete(@Param('id', ParseIntPipe) ticketId: number) {
     await randomDelay();
     const success = await this.ticketsService.complete(Number(ticketId), false);
     if (!success) throw new UnprocessableEntityException();
